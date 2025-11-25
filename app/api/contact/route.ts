@@ -200,7 +200,7 @@ export async function POST(request: NextRequest) {
                       <table width="100%" cellpadding="0" cellspacing="0" style="margin: 24px 0;">
                         <tr>
                           <td align="center">
-                            <a href="https://durgeshvaigandla.com/book-call" style="display: inline-block; background: #00f0ff; color: #000000; padding: 14px 32px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 15px;">Book a Strategy Call</a>
+                            <a href="https://durgesh-v.vercel.app/book-call" style="display: inline-block; background: #00f0ff; color: #000000; padding: 14px 32px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 15px;">Book a Strategy Call</a>
                           </td>
                         </tr>
                       </table>
@@ -224,7 +224,7 @@ export async function POST(request: NextRequest) {
                         <a href="mailto:vaigandla.durgesh@gmail.com" style="color: #00f0ff; text-decoration: none;">vaigandla.durgesh@gmail.com</a>
                       </p>
                       <p style="margin: 0; color: #6c757d; font-size: 13px;">
-                        <a href="https://durgeshvaigandla.com" style="color: #00f0ff; text-decoration: none;">durgeshvaigandla.com</a>
+                        <a href="https://durgesh-v.vercel.app" style="color: #00f0ff; text-decoration: none;">durgesh-v.vercel.app</a>
                       </p>
                     </td>
                   </tr>

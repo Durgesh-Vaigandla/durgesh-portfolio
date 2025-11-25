@@ -332,7 +332,7 @@ export async function POST(request: NextRequest) {
                         <a href="mailto:vaigandla.durgesh@gmail.com" style="color: #00f0ff; text-decoration: none;">vaigandla.durgesh@gmail.com</a>
                       </p>
                       <p style="margin: 0; color: #6c757d; font-size: 13px;">
-                        <a href="https://durgeshvaigandla.com" style="color: #00f0ff; text-decoration: none;">durgeshvaigandla.com</a>
+                        <a href="https://durgesh-v.vercel.app" style="color: #00f0ff; text-decoration: none;">durgesh-v.vercel.app</a>
                       </p>
                     </td>
                   </tr>

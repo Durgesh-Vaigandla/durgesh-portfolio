@@ -230,7 +230,7 @@ export async function POST(request: NextRequest) {
           <div style="text-align: center; margin-top: 30px; color: #999; font-size: 12px;">
             <p style="margin: 5px 0;">This is an automated confirmation email</p>
             <p style="margin: 5px 0;">
-              <a href="https://durgeshvaigandla.com" style="color: #00f0ff; text-decoration: none;">durgeshvaigandla.com</a>
+              <a href="https://durgesh-v.vercel.app" style="color: #00f0ff; text-decoration: none;">durgesh-v.vercel.app</a>
             </p>
           </div>
         </div>

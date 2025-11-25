@@ -196,7 +196,7 @@ export async function POST(request: NextRequest) {
                       <table width="100%" cellpadding="0" cellspacing="0" style="margin: 30px 0;">
                         <tr>
                           <td align="center">
-                            <a href="https://durgeshvaigandla.com/book-call" style="display: inline-block; background: linear-gradient(135deg, #00f0ff 0%, #0099cc 100%); color: black; padding: 16px 40px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 16px; box-shadow: 0 4px 15px rgba(0,240,255,0.4);">
+                            <a href="https://durgesh-v.vercel.app/book-call" style="display: inline-block; background: linear-gradient(135deg, #00f0ff 0%, #0099cc 100%); color: black; padding: 16px 40px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 16px; box-shadow: 0 4px 15px rgba(0,240,255,0.4);">
                               📞 Book a Quick Call
                             </a>
                           </td>
@@ -215,7 +215,7 @@ export async function POST(request: NextRequest) {
                   <tr>
                     <td style="padding: 30px 40px; background: rgba(0,0,0,0.3); border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
                       <p style="margin: 0 0 10px 0; color: #666; font-size: 13px;">📧 <a href="mailto:vaigandla.durgesh@gmail.com" style="color: #00f0ff; text-decoration: none;">vaigandla.durgesh@gmail.com</a></p>
-                      <p style="margin: 0; color: #666; font-size: 13px;">🌐 <a href="https://durgeshvaigandla.com" style="color: #00f0ff; text-decoration: none;">durgeshvaigandla.com</a></p>
+                      <p style="margin: 0; color: #666; font-size: 13px;">🌐 <a href="https://durgesh-v.vercel.app" style="color: #00f0ff; text-decoration: none;">durgesh-v.vercel.app</a></p>
                     </td>
                   </tr>
                 </table>

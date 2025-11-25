@@ -2,14 +2,14 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://durgeshvaigandla.com'),
+  metadataBase: new URL('https://durgesh-v.vercel.app'),
   title: 'Durgesh Vaigandla | Full Stack Developer & AI Engineer for Hire',
   description: 'Freelance Full Stack Developer specializing in React, Next.js, Node.js, and AI/ML solutions. 25+ projects delivered. Building scalable web applications for startups and enterprises. Available for hire.',
   keywords: ['Durgesh Vaigandla', 'Full Stack Developer', 'React Developer', 'Next.js Expert', 'Freelance Developer', 'AI Engineer', 'Machine Learning Developer', 'Web Development', 'Hire Developer', 'MLSC', 'Microsoft Learn Student Ambassador'],
   authors: [{ name: 'Durgesh Vaigandla' }],
   openGraph: {
     type: 'website',
-    url: 'https://durgeshvaigandla.com',
+    url: 'https://durgesh-v.vercel.app',
     title: 'Durgesh Vaigandla | Full Stack Developer & AI Engineer for Hire',
     description: 'Freelance Full Stack Developer specializing in React, Next.js, Node.js, and AI/ML solutions. 25+ projects delivered. Available for hire.',
     images: [{

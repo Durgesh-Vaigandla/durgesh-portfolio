@@ -60,18 +60,6 @@ export default function BookCallPage() {
     }
   };
 
-  const getMinDate = () => {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    return tomorrow.toISOString().split('T')[0];
-  };
-
-  const getMaxDate = () => {
-    const maxDate = new Date();
-    maxDate.setDate(maxDate.getDate() + 30);
-    return maxDate.toISOString().split('T')[0];
-  };
-
   if (submitted) {
     return (
       <>
@@ -277,8 +265,6 @@ export default function BookCallPage() {
                     <input
                       type="date"
                       required
-                      min={getMinDate()}
-                      max={getMaxDate()}
                       value={formData.date}
                       onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                       className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:border-accent outline-none transition-colors"

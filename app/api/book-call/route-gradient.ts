@@ -322,7 +322,7 @@ export async function POST(request: NextRequest) {
                     <td style="padding: 30px 40px; background: rgba(0,0,0,0.3); border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
                       <p style="margin: 0 0 10px 0; color: #666; font-size: 13px;">Need to reschedule or have questions?</p>
                       <p style="margin: 0; color: #00f0ff; font-size: 13px;"><a href="mailto:vaigandla.durgesh@gmail.com" style="color: #00f0ff; text-decoration: none;">vaigandla.durgesh@gmail.com</a></p>
-                      <p style="margin: 10px 0 0 0; color: #444; font-size: 12px;">🌐 <a href="https://durgeshvaigandla.com" style="color: #00f0ff; text-decoration: none;">durgeshvaigandla.com</a></p>
+                      <p style="margin: 10px 0 0 0; color: #444; font-size: 12px;">🌐 <a href="https://durgesh-v.vercel.app" style="color: #00f0ff; text-decoration: none;">durgesh-v.vercel.app</a></p>
                     </td>
                   </tr>
                 </table>

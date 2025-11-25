@@ -407,7 +407,7 @@ export const TESTIMONIALS: Testimonial[] = [
   },
   {
     id: 't2',
-    name: 'Sarah Jenkins',
+    name: 'Prem Doniparthi',
     role: 'Founder',
     company: 'UB Biosciences',
     content: 'Our e-commerce sales jumped 35% after the redesign. The site is incredibly fast and the admin panel makes inventory management a breeze.'
