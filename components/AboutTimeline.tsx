@@ -24,35 +24,28 @@ const AboutTimeline: React.FC = () => {
             <div className="min-w-[400px] flex flex-col justify-center">
                  <h2 className="text-5xl font-bold text-white mb-4 leading-tight">
                     <span className="text-accent text-2xl block mb-2 font-mono">04. Journey</span>
-                    Experience &<br/> Education
+                    Experience
                 </h2>
                 <p className="text-gray-400 font-mono text-sm max-w-xs">
-                    Scroll right to explore my professional milestones and academic background.
+                    Scroll right to explore my professional milestones.
                 </p>
                 <div className="mt-8 flex gap-2 text-white/20">
                      <span>→</span><span>→</span><span>→</span>
                 </div>
             </div>
 
-            {MILESTONES.map((milestone) => {
-                 const isEducation = milestone.type === 'education';
+            {MILESTONES.filter(m => m.type !== 'education').map((milestone) => {
                  return (
                     <div 
                         key={milestone.id}
-                        className={`relative min-w-[400px] h-[400px] p-8 rounded-2xl border backdrop-blur-md flex flex-col justify-between group transition-all duration-300 hover:scale-105 ${
-                            isEducation 
-                            ? 'bg-secondary/5 border-secondary/20 hover:border-secondary/50' 
-                            : 'bg-white/5 border-white/10 hover:border-accent/50'
-                        }`}
+                        className="relative min-w-[400px] h-[400px] p-8 rounded-2xl border backdrop-blur-md flex flex-col justify-between group transition-all duration-300 hover:scale-105 bg-white/5 border-white/10 hover:border-accent/50"
                     >
                         <div className="absolute top-4 right-4 text-8xl font-black opacity-5 pointer-events-none select-none">
                             {milestone.year.split(' ')[0]}
                         </div>
 
                         <div>
-                            <div className={`inline-block px-3 py-1 rounded-full text-xs font-mono mb-6 ${
-                                isEducation ? 'bg-secondary/10 text-secondary' : 'bg-accent/10 text-accent'
-                            }`}>
+                            <div className="inline-block px-3 py-1 rounded-full text-xs font-mono mb-6 bg-accent/10 text-accent">
                                 {milestone.year}
                             </div>
                             <h3 className="text-2xl font-bold text-white mb-4">{milestone.title}</h3>
@@ -61,9 +54,7 @@ const AboutTimeline: React.FC = () => {
                             </p>
                         </div>
                         
-                        <div className={`w-full h-1 mt-auto rounded-full ${
-                            isEducation ? 'bg-secondary' : 'bg-accent'
-                        }`} />
+                        <div className="w-full h-1 mt-auto rounded-full bg-accent" />
                     </div>
                  );
             })}
@@ -83,12 +74,12 @@ const AboutTimeline: React.FC = () => {
         <div className="mb-12">
             <h2 className="text-3xl font-bold text-white mb-2">
                 <span className="text-accent text-xl block mb-1">04.</span>
-                Experience & Education
+                Experience
             </h2>
             <p className="text-gray-400 text-sm">My professional journey.</p>
         </div>
         <div className="space-y-8">
-            {MILESTONES.map((milestone) => (
+            {MILESTONES.filter(m => m.type !== 'education').map((milestone) => (
                 <div key={milestone.id} className="bg-white/5 border border-white/10 p-6 rounded-xl">
                     <span className="text-accent text-xs font-mono block mb-2">{milestone.year}</span>
                     <h3 className="text-xl font-bold text-white mb-2">{milestone.title}</h3>

@@ -271,6 +271,20 @@ export const PROJECTS: Project[] = [
 ];
 
 export const MILESTONES: Milestone[] = [
+  {
+    id:'m7',
+    year: '2026',
+    title: 'Organizer - Siddharth HackFest 2K26 (SHF 2K26)',
+    description: 'Leading an even bigger, better, and blockbuster edition of the national-level hackathon on Jan 31 - Feb 1, 2026. Scaling innovation, mentorship, and technical excellence to new heights.',
+    type: 'work'
+  },
+  {
+    id:'m6',
+    year: 'Present',
+    title: 'Technical Trainer (Python FullStack)',
+    description: 'Mentoring and training aspiring developers in Python Full-Stack development. Designing curriculum, conducting live workshops, and guiding students through real-world projects to build production-ready applications.',
+    type: 'work'
+  },
   { 
     id: 'm1', 
     year: 'Present', 
@@ -280,9 +294,9 @@ export const MILESTONES: Milestone[] = [
   },
   { 
     id: 'm2', 
-    year: '2024', 
+    year: '2025', 
     title: 'Organizer - Siddharth HackFest 2K25', 
-    description: 'Led a 300+ participant national-level hackathon. Managed logistics, technical infrastructure, and mentorship, driving innovation across top tech campuses.',
+    description: 'Led a 450+ participant national-level hackathon. Managed logistics, technical infrastructure, and mentorship, driving innovation across top tech campuses.',
     type: 'work'
   },
   { 

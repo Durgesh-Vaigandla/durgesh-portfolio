@@ -6,6 +6,7 @@ import ProjectSpotlight from './components/ProjectSpotlight';
 import ProjectArchive from './components/ProjectArchive';
 import AboutTimeline from './components/AboutTimeline';
 import Skills from './components/Skills';
+import ThreeModel from './components/ThreeModel';
 import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
 import Services from './components/Services';
@@ -112,6 +113,7 @@ const App: React.FC = () => {
                 <div id="about">
                   <AboutTimeline />
                   <Skills />
+                  <ThreeModel />
                 </div>
 
                 {/* The Big Archive - For those digging deeper */}
