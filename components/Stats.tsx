@@ -2,30 +2,30 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const stats = [
-  { label: 'Projects Completed', value: '25+' },
+  { label: 'Projects Completed', value: '35+' },
   { label: 'Years Experience', value: '3+' },
+  { label: 'Happy Clients', value: '30+' },
   { label: 'Hackathon Wins', value: '5+' },
-  { label: 'Happy Clients', value: '100%' },
 ];
 
 const Stats: React.FC = () => {
   return (
-    <section className="relative z-20 -mt-16 px-4">
-      <div className="max-w-5xl mx-auto">
-        <div className="bg-glass border border-white/10 backdrop-blur-xl rounded-2xl p-8 shadow-2xl flex flex-wrap justify-between items-center gap-8 md:gap-4">
+    <section className="relative z-20 mt-0 px-4 mb-24 md:mb-12">
+      <div className="max-w-5xl mx-auto border-t border-b border-white/10 md:border-none md:bg-white-[0.02] md:backdrop-blur-xl md:rounded-2xl md:p-8 md:border md:border-white/10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 py-8 md:py-0">
           {stats.map((stat, index) => (
-            <motion.div 
+            <motion.div
               key={stat.label}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="flex-1 min-w-[150px] text-center"
+              className="flex flex-col items-center justify-center text-center"
             >
-              <div className="text-3xl md:text-4xl font-black text-white mb-1 tracking-tight">
+              <div className="text-4xl md:text-5xl font-black text-white mb-2 tracking-tight drop-shadow-md">
                 {stat.value}
               </div>
-              <div className="text-xs md:text-sm font-mono text-accent uppercase tracking-wider">
+              <div className="text-xs font-mono text-gray-500 uppercase tracking-widest font-bold">
                 {stat.label}
               </div>
             </motion.div>

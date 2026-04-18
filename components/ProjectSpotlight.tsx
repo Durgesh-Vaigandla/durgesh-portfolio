@@ -151,7 +151,7 @@ const ProjectSpotlight: React.FC<{ projects: Project[] }> = ({ projects }) => {
         <div className="w-20 h-1 bg-accent mx-auto md:mx-0 rounded-full" />
       </div>
       
-      <div className="flex flex-col lg:flex-row gap-8 justify-center items-center perspective-1000">
+      <div className="flex flex-col lg:flex-row flex-wrap gap-8 justify-center items-center perspective-1000 w-full">
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}

@@ -92,7 +92,7 @@ export const PROJECTS: Project[] = [
     description: 'Aquaculture solutions company website with e-commerce capabilities.',
     tech: ['Next.js', 'TypeScript', 'Tailwind', 'Firebase'],
     category: 'Commercial',
-    featured: true,
+    featured: false,
     image: 'https://picsum.photos/600/400?random=9',
     link: 'https://ubbiosciences.com/',
     impact: 'Boosted online inquiries by 35%.'
@@ -267,6 +267,98 @@ export const PROJECTS: Project[] = [
     featured: false,
     image: 'https://picsum.photos/600/400?random=26',
     link: 'http://skp-fortune.netlify.app'
+  },
+  {
+    id: '27',
+    title: 'Milestone Granites',
+    description: 'Corporate website and product catalog for granite exports.',
+    tech: ['Next.js', 'Tailwind CSS'],
+    category: 'Commercial',
+    featured: false,
+    image: 'https://picsum.photos/600/400?random=27',
+    link: 'https://www.milestonegraniteexports.com/'
+  },
+  {
+    id: '28',
+    title: 'RR Labs Solutions',
+    description: 'Technology solutions and laboratory equipment showcase.',
+    tech: ['HTML', 'CSS', 'JS'],
+    category: 'Commercial',
+    featured: false,
+    image: 'https://picsum.photos/600/400?random=28',
+    link: 'https://tenspick.github.io/rrlabsolutions.com/'
+  },
+  {
+    id: '29',
+    title: 'VEMU College Trainings',
+    description: 'Offline technical training and bootcamp programs.',
+    tech: ['Offline'],
+    category: 'Experimental',
+    featured: false,
+    image: 'https://picsum.photos/600/400?random=29',
+    link: '#'
+  },
+  {
+    id: '30',
+    title: 'BKIT LMS',
+    description: 'Learning management system for BKIT.',
+    tech: ['Next.js', 'Firebase'],
+    category: 'Commercial',
+    featured: false,
+    image: 'https://picsum.photos/600/400?random=30',
+    link: 'https://itseasynow.in/'
+  },
+  {
+    id: '31',
+    title: 'MRTrades',
+    description: 'Corporate business and trading platform.',
+    tech: ['Next.js', 'Tailwind'],
+    category: 'Commercial',
+    featured: false,
+    image: 'https://picsum.photos/600/400?random=31',
+    link: '#'
+  },
+  {
+    id: '32',
+    title: 'Success Consultancy and Services',
+    description: 'Consultancy business landing page.',
+    tech: ['HTML', 'CSS'],
+    category: 'Commercial',
+    featured: false,
+    image: 'https://picsum.photos/600/400?random=32',
+    link: 'http://successconsultancyandservices.com/'
+  },
+  {
+    id: '33',
+    title: 'Hotel Village Little',
+    description: 'Hotel booking and presence website.',
+    tech: ['Next.js', 'Tailwind'],
+    category: 'Commercial',
+    featured: false,
+    image: 'https://picsum.photos/600/400?random=33',
+    link: 'https://hotellittlevillage.com/'
+  },
+  {
+    id: '34',
+    title: 'Aavanto Global Mobile App',
+    description: 'Global reach mobile application for Aavanto.',
+    tech: ['React Native', 'Firebase'],
+    category: 'Commercial',
+    featured: true,
+    image: 'https://picsum.photos/600/400?random=34',
+    link: '#',
+    impact: 'Launching Soon'
+  },
+  {
+    id: '35',
+    title: 'Aavanto Study IELTS Mobile App',
+    description: 'Educational mobile app for IELTS preparation.',
+    tech: ['React Native', 'Node.js'],
+    category: 'Commercial',
+    featured: true,
+    image: 'https://picsum.photos/600/400?random=35',
+    link: '#',
+    impact: 'Launching Soon'
   }
 ];
 

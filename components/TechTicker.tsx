@@ -110,32 +110,32 @@ const TechCard: React.FC<{ tech: { name: string; slug: string } }> = ({ tech }) 
 
 const TechTicker: React.FC = () => {
   return (
-    <div className="w-full bg-[#050505] border-y border-white/5 py-16 relative z-10 select-none overflow-hidden">
-      
+    <div className="hidden md:block w-full max-w-[100vw] bg-[#050505] border-y border-white/5 py-16 relative z-10 select-none overflow-hidden">
+
       {/* Background Glows */}
       <div className="absolute top-0 left-1/4 w-96 h-full bg-accent/5 blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-96 h-full bg-secondary/5 blur-[100px] pointer-events-none" />
 
       {/* Fade Gradients for smooth edges */}
-      <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#050505] to-transparent z-20 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#050505] to-transparent z-20 pointer-events-none" />
-      
+      <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#050505] to-[#05050500] z-20 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#050505] to-[#05050500] z-20 pointer-events-none" />
+
       <div className="flex flex-col gap-12">
         {/* Row 1 - Moves Right, accelerates on scroll */}
         <ParallaxText baseVelocity={-3}>
           <div className="flex gap-8 px-4">
-             {TECH_ROW_1.map((tech, index) => (
-                <TechCard key={`r1-${index}`} tech={tech} />
-             ))}
+            {TECH_ROW_1.map((tech, index) => (
+              <TechCard key={`r1-${index}`} tech={tech} />
+            ))}
           </div>
         </ParallaxText>
 
         {/* Row 2 - Moves Left, accelerates on scroll */}
         <ParallaxText baseVelocity={3}>
-           <div className="flex gap-8 px-4">
-             {TECH_ROW_2.map((tech, index) => (
-                <TechCard key={`r2-${index}`} tech={tech} />
-             ))}
+          <div className="flex gap-8 px-4">
+            {TECH_ROW_2.map((tech, index) => (
+              <TechCard key={`r2-${index}`} tech={tech} />
+            ))}
           </div>
         </ParallaxText>
       </div>

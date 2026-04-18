@@ -1,226 +1,148 @@
-import React, { useRef, useMemo, useState, useEffect } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Float, Stars, PerspectiveCamera } from '@react-three/drei';
-import * as THREE from 'three';
+import React from 'react';
 import { motion } from 'framer-motion';
-
-// Add global type declarations for Three.js elements to resolve JSX errors
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      mesh: any;
-      icosahedronGeometry: any;
-      meshPhysicalMaterial: any;
-      dodecahedronGeometry: any;
-      meshBasicMaterial: any;
-      instancedMesh: any;
-      meshPhongMaterial: any;
-      ambientLight: any;
-      pointLight: any;
-    }
-  }
-}
-
-// The "Drone" - Physics based movement
-const HeroDrone: React.FC<{ isWarping: boolean }> = ({ isWarping }) => {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const { viewport, mouse } = useThree();
-  
-  // Physics state
-  const position = useRef(new THREE.Vector3(0, 0, 0));
-  const velocity = useRef(new THREE.Vector3(0, 0, 0));
-  
-  useFrame((_, delta) => {
-    if (meshRef.current) {
-      // Continuous rotation
-      meshRef.current.rotation.x += delta * (isWarping ? 2 : 0.2);
-      meshRef.current.rotation.y += delta * (isWarping ? 3 : 0.3);
-
-      // Physics Target (Mouse Position)
-      const targetX = (mouse.x * viewport.width) / 2;
-      const targetY = (mouse.y * viewport.height) / 2;
-      
-      // Acceleration towards target
-      const ax = (targetX - position.current.x) * 2; 
-      const ay = (targetY - position.current.y) * 2;
-
-      // Update velocity (with damping)
-      velocity.current.x += ax * delta;
-      velocity.current.y += ay * delta;
-      velocity.current.multiplyScalar(0.9); // Friction
-
-      // Update Position
-      position.current.add(velocity.current.clone().multiplyScalar(delta));
-
-      // Apply position
-      meshRef.current.position.copy(position.current);
-
-      // Banking effect (tilt based on velocity)
-      meshRef.current.rotation.z = -velocity.current.x * 0.05;
-      
-      // Warp Shake
-      if (isWarping) {
-        meshRef.current.position.x += (Math.random() - 0.5) * 0.2;
-        meshRef.current.position.y += (Math.random() - 0.5) * 0.2;
-      }
-    }
-  });
-
-  return (
-    <group>
-      <mesh ref={meshRef} scale={isWarping ? 1.5 : 1.8}>
-        <icosahedronGeometry args={[1, 1]} />
-        <meshPhysicalMaterial
-          color={isWarping ? "#ffffff" : "#1a1a1a"}
-          emissive={isWarping ? "#00f0ff" : "#00f0ff"}
-          emissiveIntensity={isWarping ? 2 : 0.2}
-          roughness={0.1}
-          metalness={0.9}
-          transmission={0.2}
-          thickness={1}
-          wireframe={true}
-        />
-        {/* Inner Core */}
-        <mesh scale={0.5}>
-             <dodecahedronGeometry args={[1, 0]} />
-             <meshBasicMaterial color={isWarping ? "#00f0ff" : "#000"} />
-        </mesh>
-      </mesh>
-    </group>
-  );
-};
-
-// Starfield that reacts to Warp
-const WarpStars: React.FC<{ isWarping: boolean }> = ({ isWarping }) => {
-  const count = 1000;
-  const mesh = useRef<THREE.InstancedMesh>(null);
-  
-  const dummy = useMemo(() => new THREE.Object3D(), []);
-  const stars = useMemo(() => {
-    const temp = [];
-    for (let i = 0; i < count; i++) {
-      const x = (Math.random() - 0.5) * 100;
-      const y = (Math.random() - 0.5) * 100;
-      const z = (Math.random() - 0.5) * 100;
-      temp.push({ x, y, z, speed: Math.random() * 0.5 + 0.1 });
-    }
-    return temp;
-  }, []);
-
-  useFrame((state, delta) => {
-    if (!mesh.current) return;
-    
-    stars.forEach((star, i) => {
-      // Move stars towards camera (z-axis)
-      star.z += star.speed * (isWarping ? 20 : 1);
-      
-      // Reset if behind camera
-      if (star.z > 20) star.z = -80;
-
-      dummy.position.set(star.x, star.y, star.z);
-      
-      // Stretch effect during warp
-      const scale = isWarping ? 5 : 0.2;
-      dummy.scale.set(0.2, 0.2, scale);
-      dummy.updateMatrix();
-      
-      mesh.current!.setMatrixAt(i, dummy.matrix);
-    });
-    mesh.current.instanceMatrix.needsUpdate = true;
-  });
-
-  return (
-    <instancedMesh ref={mesh} args={[undefined, undefined, count]}>
-      <dodecahedronGeometry args={[0.1, 0]} />
-      <meshBasicMaterial color="#ffffff" />
-    </instancedMesh>
-  );
-};
+import { MoveRight, Code2, Layers, Cpu, Command } from 'lucide-react';
 
 const ThreeHero: React.FC = () => {
-  const [isWarping, setIsWarping] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
   return (
-    <div 
-        className="relative h-screen w-full overflow-hidden bg-space select-none"
-        onMouseDown={() => setIsWarping(true)}
-        onMouseUp={() => setIsWarping(false)}
-        onTouchStart={() => setIsWarping(true)}
-        onTouchEnd={() => setIsWarping(false)}
-    >
-      {/* HUD - Warp Status */}
-      <div className={`absolute bottom-24 left-6 md:left-12 z-20 transition-opacity duration-300 ${isWarping ? 'opacity-100' : 'opacity-0'}`}>
-         <div className="text-accent font-mono text-xl font-bold animate-pulse">WARP DRIVE ENGAGED</div>
-         <div className="w-48 h-1 bg-accent/30 rounded-full overflow-hidden mt-2">
-             <div className="h-full bg-accent animate-[width_0.5s_ease-in-out_infinite]" style={{ width: '100%' }} />
-         </div>
-      </div>
-
-      {/* Available for Work Status */}
-      <div className="absolute top-24 right-6 md:right-12 flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full backdrop-blur-md z-20 hover:bg-white/10 transition-colors cursor-pointer">
-        <span className="relative flex h-3 w-3">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-        </span>
-        <span className="text-xs font-mono text-green-400 font-bold tracking-wider">AVAILABLE FOR WORK</span>
-      </div>
-
-      {/* 3D Canvas Layer */}
-      <div className="absolute inset-0 z-0">
-        <Canvas gl={{ antialias: true, alpha: true }} dpr={[1, 2]}>
-          <PerspectiveCamera makeDefault position={[0, 0, 10]} fov={isWarping ? 100 : 75} />
-          <ambientLight intensity={0.5} />
-          <pointLight position={[10, 10, 10]} intensity={1.5} color="#00f0ff" />
-          <pointLight position={[-10, -10, -10]} intensity={0.5} color="#7000ff" />
-          
-          {!isMobile && <HeroDrone isWarping={isWarping} />}
-          <WarpStars isWarping={isWarping} />
-        </Canvas>
-      </div>
-
-      {/* HTML Overlay Layer */}
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: isWarping ? 0.5 : 1, y: 0, scale: isWarping ? 0.9 : 1 }}
-          transition={{ duration: 0.3 }}
-          className="text-center px-4"
-        >
-          <h2 className="text-accent text-lg md:text-xl font-mono mb-4 tracking-widest uppercase">Hi, I'm Durgesh</h2>
-          <h1 className="text-4xl md:text-7xl font-black text-white tracking-tighter leading-tight mix-blend-difference mb-6">
-            BUILDING SCALABLE<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-secondary">
-              WEB SOLUTIONS
-            </span>
-          </h1>
-          <p className="mt-4 text-gray-300 max-w-2xl mx-auto text-sm md:text-lg font-mono leading-relaxed">
-            I build fast, scalable web apps for startups and businesses — with React, Next.js, and modern cloud stacks.
-          </p>
-          
-          <div className="mt-8 text-xs text-white/30 font-mono hidden md:block">
-             [ CLICK AND HOLD TO WARP ]
-          </div>
-        </motion.div>
-      </div>
+    <div className="relative w-full min-h-screen bg-[#050505] text-white flex flex-col font-sans pt-32 overflow-hidden">
       
-      {/* Scroll Indicator */}
-      <motion.div 
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/50 z-20"
-        animate={{ y: [0, 10, 0], opacity: isWarping ? 0 : 1 }}
-        transition={{ repeat: Infinity, duration: 2 }}
-      >
-        <div className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center p-2">
-          <div className="w-1 h-1 bg-accent rounded-full mb-1" />
+      {/* BACKGROUND */}
+      <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
+        <div className="absolute inset-0 flex justify-between px-6">
+          <div className="w-[1px] h-full bg-white shadow-[0_0_15px_#fff]" />
+          <div className="w-[1px] h-full bg-white hidden md:block" />
+          <div className="w-[1px] h-full bg-white hidden md:block" />
+          <div className="w-[1px] h-full bg-white shadow-[0_0_15px_#fff]" />
         </div>
-      </motion.div>
+        <div 
+          className="absolute inset-0 opacity-[0.2]" 
+          style={{ 
+              backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`, 
+              backgroundSize: '80px 80px' 
+          }} 
+        />
+      </div>
+
+      <div className="flex-1 flex flex-col relative z-10 w-full max-w-7xl mx-auto">
+        
+        {/* TOP ROW: IDENTITY & STATUS */}
+        <div className="px-6 grid grid-cols-1 md:grid-cols-4 gap-8 mb-12 border-b border-white/10 pb-12">
+          <div className="col-span-2">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 }}
+              className="flex items-center gap-4 text-[#00f0ff] mb-4"
+            >
+              <Command size={16} />
+              <span className="text-[10px] font-mono tracking-[0.5em] uppercase">Status: Available for Work</span>
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00f0ff] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00f0ff]"></span>
+              </span>
+            </motion.div>
+            
+            <motion.h2 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-sm font-mono text-gray-500 uppercase tracking-widest leading-relaxed"
+            >
+              [ Durgesh Vaigandla ] <br />
+              Full-Stack Product Engineer <br />
+            </motion.h2>
+          </div>
+          
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="hidden md:flex flex-col justify-end text-[10px] font-mono text-gray-600 gap-1"
+          >
+            <span>Located in India</span>
+            <span>Building intuitive systems</span>
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.4 }}
+            className="flex items-end justify-start md:justify-end"
+          >
+            <div className="w-16 h-16 border border-[#00f0ff] flex items-center justify-center text-[#00f0ff] hover:bg-[#00f0ff] hover:text-black transition-all">
+              <Code2 size={24} />
+            </div>
+          </motion.div>
+        </div>
+
+        {/* MIDDLE ROW: THE CORE STATEMENT */}
+        <div className="px-6 flex-1 flex flex-col justify-center py-12">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+          >
+            <h1 className="text-5xl md:text-7xl lg:text-[8rem] font-black tracking-tighter leading-[0.85] uppercase mb-8">
+              Build <span className="text-transparent" style={{ WebkitTextStroke: '2px #00f0ff' }}>Intelligent</span> <br />
+              Digital Goods.
+            </h1>
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+            className="max-w-2xl border-l-4 border-[#00f0ff] pl-8 py-2 relative"
+          >
+            <div className="absolute top-0 -left-[2px] w-1 h-4 bg-white shadow-[0_0_10px_#fff] blur-[1px]" />
+            <p className="text-gray-400 text-lg md:text-xl font-light leading-relaxed">
+              I transform raw concepts into high-performance products. 
+              No templates. No bloated code. Just <span className="text-white font-medium">precision-engineered interfaces</span> that move at the speed of thought.
+            </p>
+          </motion.div>
+        </div>
+
+        {/* BOTTOM ROW: THE SPECS BOXES */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+          className="grid grid-cols-1 md:grid-cols-3 border-t border-white/10"
+        >
+          <div className="p-8 border-b md:border-b-0 md:border-r border-white/10 hover:bg-[#00f0ff]/5 transition-all duration-300 relative group overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#00f0ff]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-6 text-gray-500 group-hover:text-[#00f0ff] transition-colors">
+                <Layers size={18} />
+                <span className="text-[10px] font-mono uppercase tracking-widest">Stack Stack</span>
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-white">React & Next.js</h3>
+                <p className="text-sm text-gray-500 font-mono italic">Full-stack deployment at scale.</p>
+            </div>
+          </div>
+
+          <div className="p-8 border-b md:border-b-0 md:border-r border-white/10 hover:bg-[#00f0ff]/5 transition-all duration-300 relative group overflow-hidden">
+             <div className="absolute inset-0 bg-gradient-to-br from-[#00f0ff]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+             <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-6 text-gray-500 group-hover:text-[#00f0ff] transition-colors">
+                <Cpu size={18} />
+                <span className="text-[10px] font-mono uppercase tracking-widest">Design Systems</span>
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-white">Modern Interfaces</h3>
+                <p className="text-sm text-gray-500 font-mono italic">User-centric and accessible.</p>
+             </div>
+          </div>
+
+          <a href="#contact" className="p-8 flex items-center justify-between group cursor-pointer bg-[#00f0ff] text-black hover:bg-white transition-colors duration-300">
+            <div>
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] block mb-2 opacity-80">Ready to ship?</span>
+              <h3 className="text-2xl font-black uppercase tracking-tighter">Start Project</h3>
+            </div>
+            <MoveRight size={32} className="group-hover:translate-x-4 transition-transform duration-300" />
+          </a>
+        </motion.div>
+
+      </div>
     </div>
   );
 };

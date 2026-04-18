@@ -1,48 +1,38 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+
+// ==========================================
+// PRELOADER CONFIGURATION
+// ==========================================
+const CONFIG = {
+  themeColor: "#00f0ff", 
+  developerName: "DURGESH VAIGANDLA",
+  developerRole: "FULL-STACK ENGINEER",
+  autoExitDelay: 800, 
+  loadSpeedMultiplier: 1.2, 
+};
+
+// Natural, professional loading steps
+const LOADING_STEPS = [
+  "Loading architectural assets...",
+  "Rendering interface...",
+  "Preparing project archive...",
+  "Running final checks...",
+  "Almost ready...",
+];
+// ==========================================
 
 interface PreloaderProps {
   onComplete: () => void;
 }
-
-const BOOT_LOGS = [
-  "INITIALIZING KERNEL...",
-  "LOADING MODULES: [ REACT, THREE.JS, NEXT.JS ]",
-  "CONNECTING TO NEURAL INTERFACE...",
-  "ALLOCATING MEMORY: 1024MB",
-  "CHECKING INTEGRITY...",
-  "LOADING ASSETS...",
-  "OPTIMIZING SHADERS...",
-  "ESTABLISHING SECURE CONNECTION...",
-  "ACCESS GRANTED."
-];
 
 const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
   const [logs, setLogs] = useState<string[]>([]);
   const [progress, setProgress] = useState(0);
   const [isReady, setIsReady] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [decryptedName, setDecryptedName] = useState("DXRXESH VXXGXNDLA");
-  
-  const fullText = "DURGESH VAIGANDLA";
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-  // Boot Logs Animation
-  useEffect(() => {
-    let currentIndex = 0;
-    const interval = setInterval(() => {
-      if (currentIndex < BOOT_LOGS.length) {
-        setLogs(prev => [...prev, BOOT_LOGS[currentIndex]]);
-        currentIndex++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 300);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Progress Bar
+  // Smooth Progress Bar
   useEffect(() => {
     const timer = setInterval(() => {
       setProgress((prev) => {
@@ -51,148 +41,85 @@ const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
           setIsReady(true);
           return 100;
         }
-        return prev + Math.floor(Math.random() * 5) + 1;
+        return prev + Math.floor(Math.random() * 6 * CONFIG.loadSpeedMultiplier) + 1;
       });
     }, 100);
     return () => clearInterval(timer);
   }, []);
 
-  // Decrypt Name Effect
+  // Update text based on progress
   useEffect(() => {
-    let iterations = 0;
-    const interval = setInterval(() => {
-      setDecryptedName(fullText.split("")
-        .map((letter, index) => {
-          if (index < iterations) {
-            return fullText[index];
-          }
-          return letters[Math.floor(Math.random() * 26)];
-        })
-        .join("")
-      );
-      
-      if (iterations >= fullText.length) clearInterval(interval);
-      iterations += 1/3; 
-    }, 30);
-    
-    return () => clearInterval(interval);
-  }, []);
+      if (progress < 20) setLogs([LOADING_STEPS[0]]);
+      else if (progress < 40) setLogs([LOADING_STEPS[1]]);
+      else if (progress < 60) setLogs([LOADING_STEPS[2]]);
+      else if (progress < 80) setLogs([LOADING_STEPS[3]]);
+      else setLogs([LOADING_STEPS[4]]);
+  }, [progress]);
 
+  // Auto-Exit Logic
   useEffect(() => {
-    setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
-
-    if (!isReady || isExiting) return;
-
-    const handleInteraction = () => {
-      triggerExit();
-    };
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code === 'Space') triggerExit();
-    };
-
-    if (!isMobile) {
-        window.addEventListener('keydown', handleKeyDown);
-    } else {
-        window.addEventListener('touchstart', handleInteraction);
-        window.addEventListener('click', handleInteraction);
+    if (isReady && !isExiting) {
+      const timeout = setTimeout(() => {
+        setIsExiting(true);
+        setTimeout(onComplete, 800);
+      }, CONFIG.autoExitDelay);
+      return () => clearTimeout(timeout);
     }
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('touchstart', handleInteraction);
-      window.removeEventListener('click', handleInteraction);
-    };
-  }, [isReady, isExiting, isMobile]);
-
-  const triggerExit = () => {
-    setIsExiting(true);
-    setTimeout(onComplete, 800);
-  };
+  }, [isReady, isExiting, onComplete]);
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] bg-[#000000] flex flex-col justify-between p-6 md:p-12 font-mono text-[#00f0ff] overflow-hidden selection:bg-[#00f0ff] selection:text-black"
+      className="fixed inset-0 z-[100] bg-[#050505] flex flex-col items-center justify-center p-6 md:p-12 font-sans overflow-hidden"
       initial={{ opacity: 1 }}
-      animate={isExiting ? { opacity: 0, scale: 1.1, filter: "blur(20px)" } : { opacity: 1 }}
-      transition={{ duration: 0.8 }}
+      animate={isExiting ? { opacity: 0, y: -50 } : { opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+      style={{ color: CONFIG.themeColor }}
     >
-      {/* CRT Overlay */}
-      <div className="scanline absolute inset-0 z-20 pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(0,0,0,0)60%,rgba(0,50,0,0.2)100%)] z-10 pointer-events-none" />
-
-      {/* Top Bar */}
-      <div className="flex justify-between items-start z-30 opacity-80 text-xs md:text-sm">
-        <div className="flex flex-col">
-            <span>BIOS v4.0.23</span>
-            <span>SYSTEM: ONLINE</span>
-            <span>SECURE_BOOT: ENABLED</span>
-        </div>
-        <div className="text-right hidden md:block">
-            <div>MEM: 32GB OK</div>
-            <div>CPU: 8 CORES ACTIVE</div>
-            <div>GPU: R3F RENDERER READY</div>
-        </div>
-      </div>
-
-      {/* Center Content */}
-      <div className="flex flex-col items-center justify-center flex-grow z-30">
+      <div className="relative z-10 w-full max-w-sm mx-auto flex flex-col items-center">
         
-        {/* Radar Visual */}
-        <div className="relative w-48 h-48 md:w-64 md:h-64 mb-12 rounded-full border border-[#00f0ff]/30 flex items-center justify-center bg-[#00f0ff]/5">
-            <div className="absolute inset-0 rounded-full border border-[#00f0ff]/20 scale-75" />
-            <div className="absolute inset-0 rounded-full border border-[#00f0ff]/10 scale-50" />
-            <div className="absolute inset-0 w-full h-full animate-spin-slow bg-gradient-to-tr from-transparent via-[#00f0ff]/20 to-transparent rounded-full" />
-            <div className="w-2 h-2 bg-[#00f0ff] rounded-full shadow-[0_0_10px_#00f0ff]" />
+        {/* Simple elegant spinning loader */}
+        <motion.div 
+            className="w-16 h-16 rounded-full border-2 border-white/5 border-t-[#00f0ff] mb-12"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+        />
+
+        {/* Identity Text (Clean Fade) */}
+        <motion.div 
+            className="text-center mb-12 h-24 flex flex-col justify-center"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+        >
+          <h1 className="text-2xl md:text-3xl font-bold text-white mb-2 uppercase break-words w-full px-4 text-center tracking-widest">
+            {CONFIG.developerName}
+          </h1>
+          <p className="text-xs uppercase opacity-70 tracking-[0.2em] font-mono text-gray-400">
+            {CONFIG.developerRole}
+          </p>
+        </motion.div>
+
+        {/* Progress Display */}
+        <div className="w-full">
+            <div className="flex justify-between items-end mb-3 px-1 text-xs font-mono text-gray-400">
+                <span className="opacity-90 max-w-[70%]">
+                    {logs.length > 0 ? logs[0] : "Initializing..."}
+                </span>
+                <span className="font-bold text-white">{progress}%</span>
+            </div>
+            
+            <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                <motion.div
+                    className="h-full"
+                    style={{ backgroundColor: CONFIG.themeColor }}
+                    initial={{ width: 0 }}
+                    animate={{ width: `${progress}%` }}
+                    transition={{ ease: "easeInOut", duration: 0.1 }}
+                />
+            </div>
         </div>
 
-        {/* Name */}
-        <h1 className="text-3xl md:text-5xl font-black tracking-wider text-center text-white mix-blend-screen crt-flicker mb-2">
-            {decryptedName}
-        </h1>
-        <p className="text-sm md:text-base tracking-[0.5em] text-[#00f0ff]/70 mb-12">
-            FULL STACK DEVELOPER
-        </p>
-
-        {/* Interaction Prompt */}
-        <AnimatePresence mode="wait">
-            {isReady ? (
-                 <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="bg-[#00f0ff] text-black px-6 py-2 font-bold text-sm md:text-lg animate-pulse cursor-pointer hover:scale-105 transition-transform"
-                    onClick={triggerExit}
-                 >
-                    {isMobile ? "[ TAP TO INITIALIZE ]" : "[ PRESS SPACE TO START ]"}
-                 </motion.div>
-            ) : (
-                <div className="w-64 h-2 bg-[#00f0ff]/20 rounded-full overflow-hidden border border-[#00f0ff]/30">
-                    <motion.div 
-                        className="h-full bg-[#00f0ff]"
-                        style={{ width: `${progress}%` }}
-                    />
-                </div>
-            )}
-        </AnimatePresence>
       </div>
-
-      {/* Bottom Logs */}
-      <div className="h-32 w-full max-w-2xl mx-auto border-t border-[#00f0ff]/30 pt-4 z-30 hidden md:block">
-        <div className="flex flex-col-reverse h-full overflow-hidden text-xs opacity-70">
-             {logs.map((log, i) => (
-                 <div key={i} className="mb-1">
-                     <span className="mr-2 text-white/50">[{new Date().toLocaleTimeString()}]</span>
-                     {log}
-                 </div>
-             ))}
-        </div>
-      </div>
-      
-      {/* Mobile Bottom Logs (Simplified) */}
-      <div className="md:hidden text-xs text-center opacity-50 z-30">
-        {logs[logs.length - 1]}
-      </div>
-
     </motion.div>
   );
 };

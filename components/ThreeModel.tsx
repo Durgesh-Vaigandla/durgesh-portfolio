@@ -30,7 +30,7 @@ const ThreeModel: React.FC = () => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -44,11 +44,11 @@ const ThreeModel: React.FC = () => {
   }, []);
 
   return (
-    <section className="relative w-full py-16 md:py-24 bg-space">
+    <section className="relative w-full py-16 md:py-24 bg-space overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         {/* Grid Layout: Text on Left, Image Carousel on Right */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-          
+
           {/* LEFT SIDE: Content */}
           <motion.div
             initial={{ opacity: 0, x: -100 }}
@@ -122,13 +122,14 @@ const ThreeModel: React.FC = () => {
                     src={images[currentIndex].src}
                     alt={images[currentIndex].alt}
                     fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover"
                     priority={currentIndex === 0}
                   />
-                  
+
                   {/* Gradient Overlay for Better Text Visibility */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  
+
                   {/* Image Label */}
                   <div className="absolute bottom-6 left-6 right-6">
                     <motion.p
@@ -149,11 +150,10 @@ const ThreeModel: React.FC = () => {
                   <button
                     key={index}
                     onClick={() => setCurrentIndex(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      index === currentIndex
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
                         ? 'bg-accent w-8'
                         : 'bg-white/40 hover:bg-white/60'
-                    }`}
+                      }`}
                     aria-label={`Go to image ${index + 1}`}
                   />
                 ))}
@@ -161,7 +161,7 @@ const ThreeModel: React.FC = () => {
 
               {/* Gradient Border Effect */}
               <div className="absolute inset-0 rounded-2xl pointer-events-none bg-gradient-to-tr from-accent/10 via-transparent to-secondary/10" />
-              
+
               {/* Corner Accent */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 blur-2xl rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
             </div>

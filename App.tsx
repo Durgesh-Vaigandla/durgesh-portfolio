@@ -19,11 +19,11 @@ import Preloader from './components/Preloader';
 import TechTicker from './components/TechTicker';
 import WhyMe from './components/WhyMe';
 import { PROJECTS } from './constants';
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail, ArrowUpRight } from 'lucide-react';
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const featuredProjects = PROJECTS.filter(p => p.featured).slice(0, 3);
+  const featuredProjects = PROJECTS.filter(p => p.featured).slice(0, 6);
   const archiveProjects = PROJECTS; 
 
   // Prevent scrolling while loading
@@ -69,7 +69,7 @@ const App: React.FC = () => {
   }, [isLoading]);
 
   return (
-    <div className="bg-space min-h-screen text-gray-200 selection:bg-accent/30 selection:text-white">
+    <div className="bg-space min-h-screen text-gray-200 selection:bg-accent/30 selection:text-white relative">
       <CustomCursor />
       
       <AnimatePresence mode="wait">
@@ -85,79 +85,92 @@ const App: React.FC = () => {
             {/* Hero Section */}
             <ThreeHero />
             
-            {/* Trust Signals - Overlaps Hero Bottom */}
+            {/* Trust Signals */}
             <Stats />
 
-            {/* Tech Ticker - Immediate Authority (Logos) */}
+            {/* Tech Ticker */}
             <TechTicker />
 
-            {/* Content Wrapper with background gradient fade */}
             <div className="relative z-10 pt-24 space-y-12 md:space-y-24">
-                
-                {/* Work - Proof of competence first */}
                 <ProjectSpotlight projects={featuredProjects} />
-                
-                {/* Services - What I offer */}
                 <Services />
-
-                {/* Why Me - Business Value Proposition */}
                 <WhyMe />
-
-                {/* Process - How we work together */}
                 <Process />
-                
-                {/* Social Proof - Trust building */}
                 <Testimonials />
                 
-                {/* About & Skills - Deeper dive */}
                 <div id="about">
                   <AboutTimeline />
                   <Skills />
                   <ThreeModel />
                 </div>
 
-                {/* The Big Archive - For those digging deeper */}
                 <div id="archive">
                    <ProjectArchive projects={archiveProjects} />
                 </div>
                 
-                {/* FAQ - Pre-empting objections */}
                 <FAQ />
-
-                {/* CTA - The Final Conversion Step */}
                 <Contact />
-                
             </div>
           </main>
 
-          {/* Footer */}
-          <footer className="py-12 px-6 text-center text-gray-600 font-mono text-xs relative z-10 bg-[#050505] border-t border-white/5 mt-24">
-            <div className="flex justify-center gap-6 mb-8">
-                <a 
-                  href="https://linkedin.com/in/vaigandladurgesh" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="p-3 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-accent transition-all hover:scale-110 cursor-hover border border-white/5"
-                >
-                  <Linkedin size={20} />
-                </a>
-                <a 
-                  href="https://github.com/Durgesh-Vaigandla/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="p-3 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-accent transition-all hover:scale-110 cursor-hover border border-white/5"
-                >
-                  <Github size={20} />
-                </a>
-                <a 
-                  href="mailto:vaigandla.durgesh@gmail.com" 
-                  className="p-3 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-accent transition-all hover:scale-110 cursor-hover border border-white/5"
-                >
-                  <Mail size={20} />
-                </a>
+          {/* Premium Engineered Footer */}
+          <footer className="relative mt-32 border-t border-white/10 bg-[#020202] pt-24 pb-12 overflow-hidden">
+            {/* Abstract Background Elements */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-accent/5 blur-[120px] pointer-events-none" />
+            
+            <div className="max-w-7xl mx-auto px-6 relative z-10">
+                <div className="flex flex-col md:flex-row justify-between items-start gap-16 mb-24">
+                    
+                    {/* Left Branding */}
+                    <div className="max-w-md">
+                        <h2 className="text-3xl font-black text-white mb-6 uppercase tracking-tighter">
+                            Ready to Build <br/>
+                            <span className="text-gray-500">The Future?</span>
+                        </h2>
+                        <p className="text-gray-400 font-mono text-sm leading-relaxed mb-8">
+                            A highly optimized, scalable, and beautifully designed web presence is your ultimate competitive advantage. Let's make it happen.
+                        </p>
+                        <a 
+                            href="mailto:vaigandla.durgesh@gmail.com"
+                            className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black font-bold font-mono text-sm tracking-widest hover:bg-gray-200 transition-colors"
+                        >
+                            START A PROJECT <ArrowUpRight size={16} />
+                        </a>
+                    </div>
+
+                    {/* Right Links & Socials */}
+                    <div className="flex flex-wrap gap-16 md:gap-24">
+                        <div className="flex flex-col gap-4">
+                            <span className="text-xs font-mono text-gray-500 uppercase tracking-widest mb-2 border-b border-white/10 pb-2">Navigation</span>
+                            <a href="#work" className="text-gray-400 hover:text-white transition-colors text-sm font-medium">Work</a>
+                            <a href="#services" className="text-gray-400 hover:text-white transition-colors text-sm font-medium">Services</a>
+                            <a href="#about" className="text-gray-400 hover:text-white transition-colors text-sm font-medium">About</a>
+                        </div>
+                        
+                        <div className="flex flex-col gap-4">
+                            <span className="text-xs font-mono text-gray-500 uppercase tracking-widest mb-2 border-b border-white/10 pb-2">Connect</span>
+                            <a href="https://linkedin.com/in/vaigandladurgesh" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm font-medium flex items-center gap-2">
+                                <Linkedin size={14} /> LinkedIn
+                            </a>
+                            <a href="https://github.com/Durgesh-Vaigandla/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm font-medium flex items-center gap-2">
+                                <Github size={14} /> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Bottom Bar */}
+                <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-8 border-t border-white/10 text-xs font-mono text-gray-600 uppercase tracking-widest">
+                    <p>© {new Date().getFullYear()} Durgesh Vaigandla.</p>
+                    <div className="flex items-center gap-2">
+                        <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        </span>
+                        <span>Systems Online</span>
+                    </div>
+                </div>
             </div>
-            <p className="uppercase tracking-widest">Designed & Built by Durgesh Vaigandla</p>
-            <p className="mt-2 text-gray-700">© {new Date().getFullYear()} All Rights Reserved.</p>
           </footer>
       </div>
     </div>
