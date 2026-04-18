@@ -3,28 +3,28 @@ import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://durgesh-v.vercel.app'),
-  title: 'Durgesh Vaigandla | Full Stack Developer & AI Engineer for Hire',
-  description: 'Freelance Full Stack Developer specializing in React, Next.js, Node.js, and AI/ML solutions. 25+ projects delivered. Building scalable web applications for startups and enterprises. Available for hire.',
-  keywords: ['Durgesh Vaigandla', 'Full Stack Developer', 'React Developer', 'Next.js Expert', 'Freelance Developer', 'AI Engineer', 'Machine Learning Developer', 'Web Development', 'Hire Developer', 'MLSC', 'Microsoft Learn Student Ambassador'],
+  title: 'Durgesh Vaigandla | Product Builder & Growth Partner',
+  description: 'I build systems that generate users, leads, and revenue. Partner with a technical expert who focuses on business growth, scalable infrastructure, and flawless execution. 35+ products deployed.',
+  keywords: ['Durgesh Vaigandla', 'Product Builder', 'Fractional CTO', 'SaaS Strategy', 'Growth Engineer', 'Systems Architecture', 'Technical Partner', 'Startup Development', 'Conversion Optimization', 'Next.js Expert'],
   authors: [{ name: 'Durgesh Vaigandla' }],
   openGraph: {
     type: 'website',
     url: 'https://durgesh-v.vercel.app',
-    title: 'Durgesh Vaigandla | Full Stack Developer & AI Engineer for Hire',
-    description: 'Freelance Full Stack Developer specializing in React, Next.js, Node.js, and AI/ML solutions. 25+ projects delivered. Available for hire.',
+    title: 'Durgesh Vaigandla | Systems Built for Revenue & Scale',
+    description: 'Transforming ideas into extreme-performance digital assets. 35+ products deployed. Discover actionable case studies.',
     images: [{
       url: '/og-image.png',
       width: 1200,
       height: 630,
-      alt: 'Durgesh Vaigandla Portfolio'
+      alt: 'Durgesh Vaigandla | Growth and Architecture'
     }],
-    siteName: 'Durgesh Vaigandla Portfolio',
+    siteName: 'Durgesh Vaigandla Strategy',
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Durgesh Vaigandla | Full Stack Developer & AI Engineer for Hire',
-    description: 'Freelance Full Stack Developer specializing in React, Next.js, Node.js, and AI/ML solutions. 25+ projects delivered. Available for hire.',
+    title: 'Durgesh Vaigandla | Product Builder & Tech Partner',
+    description: 'Stop hunting for developers. Partner with a product builder who ships fast, scales efficiently, and focuses on bottom-line growth.',
     images: ['/og-image.png'],
     creator: '@durgeshvaigandla',
   },
@@ -49,6 +49,25 @@ export default function RootLayout({
       <head>
         <meta name="theme-color" content="#00f0ff" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Durgesh Vaigandla",
+              "givenName": "Durgesh",
+              "familyName": "Vaigandla",
+              "url": "https://durgesh-v.vercel.app",
+              "jobTitle": "Product Builder & Growth Partner",
+              "sameAs": [
+                "https://linkedin.com/in/vaigandladurgesh",
+                "https://github.com/Durgesh-Vaigandla/"
+              ],
+              "knowsAbout": ["Web Development", "AI Engineering", "SaaS Infrastructure", "Growth Engineering"]
+            })
+          }}
+        />
       </head>
       <body className="bg-space text-gray-200 selection:bg-accent/30 selection:text-white">
         {children}

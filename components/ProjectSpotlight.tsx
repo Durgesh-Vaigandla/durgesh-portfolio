@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Project } from '../types';
-import { ExternalLink, TrendingUp, Cpu, Zap, Globe, Code2 } from 'lucide-react';
+import { ExternalLink, TrendingUp, Presentation, Briefcase, Command } from 'lucide-react';
 
 interface ProjectCardProps {
   project: Project;
@@ -35,16 +34,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
     y.set(0);
   };
 
-  const getIcon = () => {
-      if (project.tech.some(t => t.includes('AI') || t.includes('Python'))) return <Cpu className="w-full h-full text-accent/20" />;
-      if (project.category === 'Experimental') return <Zap className="w-full h-full text-secondary/20" />;
-      if (project.category === 'Open Source') return <Code2 className="w-full h-full text-green-400/20" />;
-      return <Globe className="w-full h-full text-accent/20" />;
-  };
-
   return (
     <motion.div
-      className="relative w-full md:w-[380px] h-[520px] cursor-hover perspective-1000"
+      className="relative w-full max-w-sm min-h-[500px] cursor-hover perspective-1000 flex flex-col"
       style={{
         rotateX,
         rotateY,
@@ -54,13 +46,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       onMouseLeave={handleMouseLeave}
     >
       <div 
-        className="absolute inset-0 bg-[#0a0a0a] rounded-2xl border border-white/10 overflow-hidden shadow-2xl group transition-all duration-300 hover:border-accent/40 hover:shadow-[0_0_40px_rgba(0,240,255,0.1)] flex flex-col"
+        className="relative flex-1 bg-[#0a0a0a] rounded-2xl border border-white/10 overflow-hidden shadow-2xl group transition-all duration-300 hover:border-[#00f0ff]/40 hover:shadow-[0_0_40px_rgba(0,240,255,0.1)] flex flex-col"
         style={{ transform: "translateZ(20px)" }}
       >
         {/* Abstract Backgrounds */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute -top-20 -right-20 w-60 h-60 bg-accent/5 rounded-full blur-[80px]" />
-            <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-secondary/5 rounded-full blur-[80px]" />
+            <div className="absolute -top-20 -right-20 w-60 h-60 bg-[#00f0ff]/5 rounded-full blur-[80px]" />
             <div 
                 className="absolute inset-0 opacity-[0.03]" 
                 style={{ 
@@ -72,60 +63,66 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 
         <div className="relative z-10 p-8 flex flex-col h-full">
             {/* Top Bar */}
-            <div className="flex justify-between items-start mb-8">
-                <span className={`px-3 py-1 rounded-md text-[10px] font-mono uppercase tracking-widest border ${
-                    project.category === 'Experimental' ? 'border-secondary/30 text-secondary bg-secondary/5' : 'border-accent/30 text-accent bg-accent/5'
-                }`}>
-                    {project.category}
+            <div className="flex justify-between items-start mb-6">
+                <span className="px-3 py-1 rounded-sm text-[10px] font-mono uppercase tracking-widest border border-white/10 bg-white/5 text-gray-400">
+                    Client Case Study
                 </span>
-                <div className="w-12 h-12 p-2 rounded-xl bg-white/5 border border-white/5 group-hover:bg-white/10 transition-colors">
-                    {getIcon()}
+                <div className="w-10 h-10 p-2 rounded-lg bg-white/5 border border-white/5 group-hover:bg-[#00f0ff]/10 group-hover:text-[#00f0ff] transition-colors text-white/50">
+                    <Presentation className="w-full h-full" />
                 </div>
             </div>
 
-            {/* Content */}
-            <div className="flex-grow">
-                <h3 className="text-3xl font-bold text-white mb-4 leading-tight group-hover:text-accent transition-colors">
+            {/* Content Header */}
+            <div className="mb-6">
+                <h3 className="text-3xl font-black text-white leading-tight group-hover:text-[#00f0ff] transition-colors tracking-tighter uppercase">
                     {project.title}
                 </h3>
-                <p className="text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3">
-                    {project.description}
-                </p>
+            </div>
 
+            <div className="flex-grow space-y-6">
+                
+                {/* The Challenge */}
+                <div>
+                  <span className="text-[10px] text-[#00f0ff] font-black uppercase tracking-[0.2em] block mb-2 opacity-80 flex items-center gap-2">
+                    <Command size={10} /> The Challenge
+                  </span>
+                  <p className="text-gray-400 text-sm font-light leading-relaxed">
+                      {project.description}
+                  </p>
+                </div>
+
+                {/* The Infrastructure */}
+                <div>
+                  <span className="text-[10px] text-[#00f0ff] font-black uppercase tracking-[0.2em] block mb-2 opacity-80 flex items-center gap-2">
+                    <Briefcase size={10} /> The Infrastructure
+                  </span>
+                  <p className="text-gray-300 text-xs font-mono border-l-2 border-white/10 pl-3">
+                      Built utilizing scalable instances of {project.tech.join(", ")}.
+                  </p>
+                </div>
+
+                {/* The Impact */}
                 {project.impact && (
-                    <div className="mt-4 p-4 rounded-lg bg-white/5 border border-white/5 backdrop-blur-sm group-hover:border-accent/20 transition-colors">
-                        <div className="flex items-center gap-2 mb-1">
-                            <TrendingUp size={14} className="text-green-400" />
-                            <span className="text-[10px] uppercase tracking-wider text-gray-500 font-mono">Impact</span>
+                    <div className="mt-4 p-5 rounded bg-white/5 border border-[#00f0ff]/20 backdrop-blur-sm group-hover:bg-[#00f0ff]/5 transition-colors">
+                        <div className="flex items-center gap-2 mb-2">
+                            <TrendingUp size={14} className="text-[#00f0ff]" />
+                            <span className="text-[10px] uppercase tracking-wider text-white font-black">Business Impact</span>
                         </div>
                         <p className="text-white text-sm font-medium">{project.impact}</p>
                     </div>
                 )}
             </div>
 
-            {/* Bottom */}
+            {/* Bottom Actions */}
             <div className="mt-8 pt-6 border-t border-white/5">
-                <div className="flex flex-wrap gap-2 mb-6">
-                    {project.tech.slice(0, 3).map((t) => (
-                        <span key={t} className="text-[10px] font-mono text-gray-500 px-2 py-1 rounded bg-white/5 border border-white/5">
-                            {t}
-                        </span>
-                    ))}
-                    {project.tech.length > 3 && (
-                        <span className="text-[10px] font-mono text-gray-600 px-2 py-1">+ {project.tech.length - 3}</span>
-                    )}
-                </div>
-
                 <a 
                     href={project.link || '#'}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between group/btn text-white"
+                    className="flex items-center justify-between group/btn text-white w-full bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-3 transition-all"
                 >
-                    <span className="text-sm font-bold font-mono group-hover/btn:text-accent transition-colors">LIVE DEMO</span>
-                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover/btn:bg-accent group-hover/btn:text-black transition-all">
-                        <ExternalLink size={14} />
-                    </div>
+                    <span className="text-xs font-bold uppercase tracking-widest">Verify Implementation</span>
+                    <ExternalLink size={14} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
                 </a>
             </div>
         </div>
@@ -144,14 +141,16 @@ const ProjectSpotlight: React.FC<{ projects: Project[] }> = ({ projects }) => {
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8 }}
     >
-      <div className="mb-16">
-        <h2 className="text-3xl font-bold text-white mb-2 flex items-center justify-center md:justify-start gap-3">
-          <span className="text-accent text-xl">01.</span> Featured Work
+      <div className="mb-20">
+        <h2 className="text-4xl md:text-5xl font-black text-white mb-4 uppercase tracking-tighter">
+          <span className="text-transparent" style={{ WebkitTextStroke: '1px #00f0ff' }}>01.</span> Case Studies
         </h2>
-        <div className="w-20 h-1 bg-accent mx-auto md:mx-0 rounded-full" />
+        <p className="text-gray-500 font-mono text-sm max-w-xl border-l-2 border-[#00f0ff] pl-4">
+            A selection of scaling solutions, optimized architectures, and user acquisition engines built for actual businesses.
+        </p>
       </div>
       
-      <div className="flex flex-col lg:flex-row flex-wrap gap-8 justify-center items-center perspective-1000 w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center items-stretch perspective-1000 w-full">
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}

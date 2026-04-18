@@ -76,7 +76,7 @@ const ThreeModel: React.FC = () => {
             </h2>
 
             <p className="text-gray-300 text-base md:text-lg leading-relaxed max-w-lg font-light mb-8">
-              Every challenge drives growth. Whether mentoring developers or architecting scalable systems, I embrace continuous learning and push toward excellence.
+              I treat every obstacle as a catalyst for growth. Whether mentoring developers or architecting scalable systems, I turn challenges into high‑impact, revenue‑generating solutions.
             </p>
 
             <div className="flex gap-4">
@@ -164,12 +164,6 @@ const ThreeModel: React.FC = () => {
 
               {/* Corner Accent */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 blur-2xl rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-            </div>
-
-            {/* Info Badge Below Box */}
-            <div className="mt-4 flex items-center gap-2 text-accent text-xs md:text-sm font-mono justify-center md:justify-start">
-              <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-              <span>Auto-rotating showcase • Click dots to navigate</span>
             </div>
           </motion.div>
         </div>
